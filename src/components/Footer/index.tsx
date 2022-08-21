@@ -17,7 +17,7 @@ export function Footer() {
           <Link to="/">Home</Link>
         </li>
         <li className="border-gray">
-          <Link to="/products">Shop</Link>
+          <Link to="/plants">Shop</Link>
         </li>
         <li className="border-blue">
           <a href="#">Galeria</a>

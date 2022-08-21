@@ -19,7 +19,7 @@ export function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/products" className="blue">
+          <Link to="/plants" className="blue">
             Shop
           </Link>
         </li>

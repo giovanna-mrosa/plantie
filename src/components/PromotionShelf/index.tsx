@@ -1,4 +1,3 @@
-import plant from '../../assets/jiboia-grande.avif'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar } from 'swiper'
 
@@ -6,7 +5,45 @@ import './styles.scss'
 import 'swiper/css'
 import 'swiper/css/scrollbar'
 
+import api from '../../services/api'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
+interface Product {
+  _id: string
+  name: string
+  description: string
+  imageUrl: string
+  listPrice: number
+  price: number
+  installmentsQuantity: number
+  installmentsValue: number
+}
+
 export function PromotionShelf() {
+  const [products, setProducts] = useState<Product[]>([])
+
+  function formatCurrency(price: number) {
+    return Intl.NumberFormat('pt-br', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(price / 100)
+  }
+
+  async function getProducts() {
+    const response = await api.get<Product[]>('/plant')
+    const product = response.data
+    const saleProducts = product.filter((saleProduct) => {
+      return saleProduct.listPrice !== null
+    })
+
+    setProducts(saleProducts)
+  }
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+
   return (
     <div className="carousel-box">
       <p className="title-sale">Promoções</p>
@@ -21,51 +58,29 @@ export function PromotionShelf() {
         onSwiper={(swiper) => console.log(swiper)}
         className="carousel"
       >
-        <SwiperSlide className="product">
-          <img src={plant} alt="Jiboia" />
-          <div className="product-info">
-            <p className="product-name">Jibóia Prateada</p>
-            <p className="product-list-price">R$ 60,00</p>
-            <p className="product-price">R$ 45,00</p>
-            <p className="product-installments">ou 2x de R$ 25,50</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="product">
-          <img src={plant} alt="Jiboia" />
-          <div className="product-info">
-            <p className="product-name">Jibóia Prateada</p>
-            <p className="product-list-price">R$ 60,00</p>
-            <p className="product-price">R$ 45,00</p>
-            <p className="product-installments">ou 2x de R$ 25,50</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="product">
-          <img src={plant} alt="Jiboia" />
-          <div className="product-info">
-            <p className="product-name">Jibóia Prateada</p>
-            <p className="product-list-price">R$ 60,00</p>
-            <p className="product-price">R$ 45,00</p>
-            <p className="product-installments">ou 2x de R$ 25,50</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="product">
-          <img src={plant} alt="Jiboia" />
-          <div className="product-info">
-            <p className="product-name">Jibóia Prateada</p>
-            <p className="product-list-price">R$ 60,00</p>
-            <p className="product-price">R$ 45,00</p>
-            <p className="product-installments">ou 2x de R$ 25,50</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="product">
-          <img src={plant} alt="Jiboia" />
-          <div className="product-info">
-            <p className="product-name">Jibóia Prateada</p>
-            <p className="product-list-price">R$ 60,00</p>
-            <p className="product-price">R$ 45,00</p>
-            <p className="product-installments">ou 2x de R$ 25,50</p>
-          </div>
-        </SwiperSlide>
+        {products.map((product) => (
+          <SwiperSlide key={product._id} className="product">
+            <Link to={{ pathname: `/plant/${product._id}` }}>
+              <img src={product.imageUrl} alt="Jiboia" />
+            </Link>
+            <div className="product-info">
+              <Link
+                className="product-name"
+                to={{ pathname: `/plant/${product._id}` }}
+              >
+                <p>{product.name}</p>
+              </Link>
+              <p className="product-list-price">
+                {formatCurrency(product.listPrice)}
+              </p>
+              <p className="product-price">{formatCurrency(product.price)}</p>
+              <p className="product-installments">
+                à vista ou em {product.installmentsQuantity}x de{' '}
+                {formatCurrency(product.installmentsValue)}
+              </p>
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   )

@@ -49,6 +49,13 @@
       align-items: flex-start;
       gap: 1.125rem;
 
+      &:hover {
+        transform: scale(1.01);
+        p {
+          color: #fa9786;
+        }
+      }
+
       img {
         width: 380px;
         height: fit-content;

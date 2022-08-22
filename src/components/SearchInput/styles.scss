@@ -1,0 +1,51 @@
+form {
+  display: flex;
+  position: relative;
+  width: min-content;
+  justify-content: flex-end;
+  flex: 1;
+
+    input {
+    height: 61px;
+    width: 426px;
+    border-radius: 32px;
+    background: #FFFFFF;
+    box-shadow: -13px 9px 14px -2px #00000014;
+    border: none;
+    outline: none;
+    padding-left: 30px;
+    color: #BEC0CA;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.6;
+
+    &::placeholder {
+      color: #BEC0CA;
+      font-family: Roboto;
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    }
+
+    button {
+    position: absolute;
+    right: 0;
+    height: 61px;
+    width: 142px;
+    border-radius: 32px;
+    background: linear-gradient(263.74deg, #FABBB0 5.6%, #FFC794 69.15%); 
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #FFFFFF;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background: linear-gradient(263.74deg, #FFC794 5.6%, #FABBB0 69.15%);
+      transition: all ease 1s;  
+    }
+    }
+}

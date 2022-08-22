@@ -90,6 +90,11 @@
           &:hover {
             color: #FABBB0;
           }
+
+          &:disabled {
+            color: #BEC0CA;
+            cursor: not-allowed;
+          }
         }
 
         .quantity {
@@ -101,7 +106,7 @@
           background-color: #f1f1f1;
           color: #868895;
           font-weight: 700;
-          font-size: 33px;
+          font-size: 24px;
         }
 
         .plus {

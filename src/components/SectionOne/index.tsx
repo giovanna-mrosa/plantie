@@ -1,5 +1,6 @@
 import asplenio from '../../assets/asplenio-mini.svg'
 import cactus from '../../assets/cactus.svg'
+import { SearchInput } from '../SearchInput'
 
 import './styles.scss'
 
@@ -19,10 +20,9 @@ export function SectionOne() {
           </div>
         </div>
 
-        <form action="">
-          <input type="search" placeholder="O que voce está procurando?" />
-          <button>Buscar</button>
-        </form>
+        <div className="input-box">
+          <SearchInput />
+        </div>
       </main>
       <img src={cactus} alt="" />
     </section>

@@ -61,7 +61,7 @@ export function PromotionShelf() {
         {products.map((product) => (
           <SwiperSlide key={product._id} className="product">
             <Link to={{ pathname: `/plant/${product._id}` }}>
-              <img src={product.imageUrl} alt="Jiboia" />
+              <img src={product.imageUrl} alt={product.name} />
             </Link>
             <div className="product-info">
               <Link

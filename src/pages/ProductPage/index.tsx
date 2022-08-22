@@ -1,6 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import productImg from '../../assets/jiboia-grande.avif'
 import api from '../../services/api'
 
 import './styles.scss'
@@ -37,7 +37,6 @@ export function ProductPage() {
 
   useEffect(() => {
     getPlant()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function increase() {
@@ -59,6 +58,8 @@ export function ProductPage() {
     }).format(price / 100)
   }
 
+  const disabledMinusButton = counter === 1
+
   return (
     <div className="container-pdp">
       <img src={plant.imageUrl} alt={plant.name} />
@@ -66,7 +67,9 @@ export function ProductPage() {
         <h2>{plant.name}</h2>
         <p className="product-description">{plant.description}</p>
         <div className="price-info">
-          <span>{formatCurrency(plant.listPrice)}</span>
+          {plant.listPrice !== null && (
+            <span>{formatCurrency(plant.listPrice)}</span>
+          )}
           <div className="price-parcel">
             <p className="price">{formatCurrency(plant.price)}</p>
             <p className="parcel">
@@ -77,7 +80,11 @@ export function ProductPage() {
         </div>
         <div className="buttons">
           <div className="quantity-box">
-            <button className="minus" onClick={decrease}>
+            <button
+              className="minus"
+              disabled={disabledMinusButton}
+              onClick={decrease}
+            >
               -
             </button>
             <p className="quantity">{counter}</p>

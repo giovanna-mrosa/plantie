@@ -4,8 +4,16 @@ import { ShoppingCart } from 'phosphor-react'
 import { Link } from 'react-router-dom'
 
 import './styles.scss'
+import { LoginModal } from '../LoginModal'
+import { useState } from 'react'
 
 export function Navbar() {
+  const [openModal, setOpenModal] = useState(false)
+
+  function handleModalLogin() {
+    setOpenModal(!openModal)
+  }
+
   return (
     <nav className="nav-style">
       <Link to="/">
@@ -36,7 +44,12 @@ export function Navbar() {
       </ul>
 
       <div className="user">
-        <button>Minha Conta</button>
+        <button className="button-login" onClick={handleModalLogin}>
+          Minha Conta
+        </button>
+
+        {openModal === true && <LoginModal />}
+
         <ShoppingCart size={30} className="cart" />
       </div>
     </nav>
